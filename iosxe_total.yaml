@@ -1,0 +1,28 @@
+---
+- name: Sample IOS playbook to retrieve Serial Num and Show commands
+  hosts: iosxe
+  gather_facts: no
+
+  tasks:
+  - name: display version and serial number
+    debug:
+      msg: "The IOS version is: {{ ansible_net_version }} and the SerialNumber is: {{ ansible_net_serialnum }}"
+
+  - name: run show ip int brief
+    cisco.ios.ios_command:
+      commands: show ip interface brief
+    register: myinterfaces
+
+  - name: display value of "myinterfaces" variable
+    debug:
+      var: myinterfaces["stdout_lines"][0]
+      
+  - name: Show the running commands
+    cisco.ios.ios_command:
+      commands: show running-config
+    register: runningconfig
+
+  - name: display value of "runnig config" variable
+    debug:
+      var: runningconfig
+

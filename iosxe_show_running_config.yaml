@@ -1,0 +1,15 @@
+---
+- name: Sample IOS playbook to retrieve running config
+  hosts: iosxe
+  gather_facts: no
+
+  tasks:
+  - name: Show the running commands
+    cisco.ios.ios_command:
+      commands: show running-config
+    register: runningconfig
+
+  - name: display value of "runnig config" variable
+    debug:
+      var: runningconfig
+

@@ -1,0 +1,12 @@
+---
+- name: Sample IOS playbook to retrieve Serial Num and display version
+  hosts: iosxe
+  gather_facts: no
+
+  tasks:
+  - name: retrieve ios facts
+    cisco.ios.ios_facts:
+
+  - name: display version and serial number
+    debug:
+      msg: "The IOS version is: {{ ansible_net_version }} and the SerialNumber is: {{ ansible_net_serialnum }}"
